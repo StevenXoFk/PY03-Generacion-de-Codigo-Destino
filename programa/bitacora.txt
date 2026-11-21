@@ -1,0 +1,40 @@
+Bitácora del Proyecto 2 - Análisis Semántico y Generación de Código Intermedio
+Generada con git log del repositorio https://github.com/StevenXoFk/PY02-Analisis-semantico-y-generacion-de-codigo-intermedio
+Rama: dev. Del commit más reciente al más antiguo.
+Formato: commit | autor | fecha y hora | mensaje
+
+7f5dbe0 | Angelo Piedra | 2026-11-09 18:48 | Se creo la documentacion del proyecto
+8a2bed9 | Angelo Piedra | 2026-11-09 18:23 | Se elimino el documento del proyecto anterior
+1e0a000 | Angelo Piedra | 2026-11-09 18:22 | Se elimino archivos de prueba que no son necesarios y se agregaron unos de prueba para mostrar los errores lexicos, sintacticos, semanticos y un caso el cual compila exitosamente
+d1b99bb | Angelo Piedra | 2026-11-08 14:39 | feat: add formatting lines to token and symbol reports for better readability
+69c6f16 | Angelo Piedra | 2026-11-08 01:46 | Merge pull request #7 from StevenXoFk/feature/tac
+067d303 | Angelo Piedra | 2026-11-08 01:41 | feat: generador de código de tres direcciones
+d8314b1 | Elian Trejos Quirós | 2026-11-08 00:21 | Merge pull request #6 from StevenXoFk/feature/semantico
+1f031c7 | Elian Trejos | 2026-11-08 00:17 | feat: validacion de la actualizacion del for y de expresiones usadas como sentencia
+0322080 | Elian Trejos | 2026-11-07 22:46 | feat: validacion de llamadas, return obligatorio y codigo inalcanzable
+05a8d0f | Elian Trejos Quirós | 2026-11-07 18:11 | Merge pull request #5 from StevenXoFk/feature/semantico
+d59e0c7 | Elian Trejos | 2026-11-07 17:59 | feat: validacion de arreglos en creacion, acceso, asignacion y uso como valor
+f0c08fb | Elian Trejos | 2026-11-07 16:22 | feat: validacion de read y write e igualdad sin string
+4e7632b | Elian Trejos | 2026-11-07 15:14 | feat: validacion de break solo dentro de while o for
+55b7aef | Elian Trejos | 2026-11-07 02:16 | feat: validacion de incremento y decremento solo en variables int o float
+7250732 | Elian Trejos | 2026-11-07 01:59 | feat: validacion de condiciones bool en if, elif, while y for
+dc626e4 | Angelo Piedra | 2026-11-07 00:57 | Merge pull request #4 from StevenXoFk/feature/semantico
+4d5d000 | Angelo Piedra | 2026-11-07 00:56 | refactor: tabla de símbolos más simple
+6e1673b | Elian Trejos | 2026-11-06 23:50 | feat: validacion de tipos en operadores logicos
+807a68b | Elian Trejos | 2026-11-06 21:55 | feat: validacion de tipos en operadores relacionales
+5a4ce86 | Elian Trejos | 2026-11-05 23:48 | feat: validacion de operadores aritmeticos y nombres mas claros en Semantico
+a3997e3 | Elian Trejos | 2026-11-05 19:02 | feat: validacion de tipos en asignaciones y creaciones con valor
+5882beb | Elian Trejos | 2026-11-05 17:37 | feat: ubicacion primero en el formato de errores
+36aab61 | Elian Trejos | 2026-11-05 10:53 | feat: validacion de redeclaraciones en el mismo alcance
+61de991 | Elian Trejos | 2026-11-05 09:54 | feat(semantico): declaracion antes de uso
+292c106 | Angelo Piedra | 2026-11-05 01:55 | Merge pull request #3 from StevenXoFk/feature/contrato
+49a1376 | Angelo Piedra | 2026-11-05 01:54 | Merge branch 'feature/contrato' of https://github.com/StevenXoFk/PY02-Analisis-semantico-y-generacion-de-codigo-intermedio into feature/contrato
+7c70cf7 | Angelo Piedra | 2026-11-05 01:50 | feat: esqueleto del generador de código intermedio
+eb870a6 | Angelo Piedra | 2026-11-05 01:49 | feat: contrato semántica/TAC y análisis en dos pasadas
+c6fb0c6 | Angelo Piedra | 2026-11-05 01:50 | feat: esqueleto del generador de código intermedio
+5f318a2 | Angelo Piedra | 2026-11-05 01:49 | feat: contrato semántica/TAC y análisis en dos pasadas
+7d0fd6b | Elian Trejos Quirós | 2026-11-04 11:43 | Merge pull request #2 from StevenXoFk/feature/gramatica
+5815a3e | Elian Trejos | 2026-11-04 11:37 | feat: correcciones de gramatica segun revision del Proyecto 1
+6e6c097 | Angelo Piedra | 2026-11-03 23:27 | Merge pull request #1 from StevenXoFk/feature/tabla-simbolos
+b20ed47 | Angelo Piedra | 2026-11-03 23:26 | feat: tabla de símbolos por alcance (corrección Proyecto 1)
+491b41e | Angelo Piedra | 2026-11-03 13:41 | Se copio los archivos del proyecto #1 de compiladores e interpretes
