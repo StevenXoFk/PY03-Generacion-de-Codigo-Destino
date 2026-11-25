@@ -268,7 +268,7 @@ public final class Semantico {
      * @Entrada: tipo de cada operando, operador y posición del operador.
      * @Salida: tipo del resultado o "error".
      * @Restricciones: tipado estricto, no se mezclan int y float.
-     *                 + - * aceptan dos int o dos float; / igual pero siempre da float;
+     *                 + - * aceptan dos int o dos float; / solo dos float;
      *                 // mod pot solo aceptan dos int.
      */
     private static String aritmetica(String tipoA, String op, String tipoB, int linea, int columna) {
@@ -293,8 +293,12 @@ public final class Semantico {
             return Expr.ERROR;
         }
 
-        // La división decimal siempre da float
+        // La división decimal solo acepta float
         if (op.equals("/")) {
+            if (!ambosFloat) {
+                ErrorReporter.semantico("El operador '/' solo acepta float, se recibió " + tipoA + " y " + tipoB, columna, linea);
+                return Expr.ERROR;
+            }
             return "float";
         }
         return tipoA;

@@ -1,0 +1,8 @@
+void principal є: :э ¿:
+    val int a Ͱ 7 / 2 »  | error: / con int
+    val float b Ͱ 7.0 / 2 »  | error: float / int
+    val float c Ͱ 7 / 2.0 »  | error: int / float
+    val float d Ͱ 7.0 / 2.0 »  | ok: / con float
+    val int e Ͱ 7 // 2 »  | ok: // con int
+    val float f Ͱ 7.0 // 2.0 »  | error: // con float
+:?
