@@ -1,0 +1,14 @@
+val int c »
+
+void principal є: :э ¿:
+    val int d »
+    val int e Ͱ c + 1 »  | error: c sin valor
+    write є: d :э »  | error: d sin valor
+    val int f Ͱ f + 1 »  | error: f en su propia declaración
+    d++ »  | error: d sin valor
+    d Ͱ 5 »  | ok: asignar inicializa
+    write є: d :э »  | ok: ya tiene valor
+    val int g »
+    read є: g :э »  | ok: read inicializa
+    write є: g :э »  | ok: ya tiene valor
+:?
