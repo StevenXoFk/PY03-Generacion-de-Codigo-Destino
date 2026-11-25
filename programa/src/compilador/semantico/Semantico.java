@@ -747,7 +747,7 @@ public final class Semantico {
         for (Simbolo simbolo : tabla.getSimbolos()) {
             String nombre = simbolo.getLexema();
 
-            // Redeclarado en esta misma tabla (la marca la puso TablaSimbolos.agregar)
+            // Redeclarado (marca puesta en GestorTablas.cerrarGlobal)
             if (simbolo.isRedeclarada()) {
                 int lineaPrimera = simbolo.getPrimeraDeclaracion().getLinea();
                 ErrorReporter.semantico("Redeclaración de '" + nombre + "' (primera declaración en la línea " + lineaPrimera + ")",
