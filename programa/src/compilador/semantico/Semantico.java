@@ -38,6 +38,9 @@ public final class Semantico {
     // Funciones que tienen al menos un return (se llena en la pasada 2)
     private static List<Simbolo> funcionesConReturn = new ArrayList<>();
 
+    // Posiciones de las variables que ya recibieron valor (se llena en la pasada 2)
+    private static List<Long> inicializadas = new ArrayList<>();
+
     private Semantico() { }
 
     /**
@@ -48,6 +51,7 @@ public final class Semantico {
     public static void iniciar(TablaSimbolos global) {
         tablaGlobal = global;
         funcionesConReturn.clear();
+        inicializadas.clear();
     }
 
     /**
@@ -58,6 +62,7 @@ public final class Semantico {
     public static void reiniciar() {
         tablaGlobal = null;
         funcionesConReturn.clear();
+        inicializadas.clear();
     }
 
     /**
@@ -107,6 +112,27 @@ public final class Semantico {
     }
 
     /**
+     * Marca una variable como inicializada.
+     * @Entrada: símbolo de la variable.
+     * @Salida: su posición queda en la lista.
+     */
+    private static void marcarInicializada(Simbolo s) {
+        inicializadas.add(s.getPosicion());
+    }
+
+    /**
+     * Indica si una variable ya tiene valor.
+     * @Entrada: símbolo de la variable.
+     * @Salida: true si ya recibió valor, o si es parámetro o arreglo.
+     */
+    private static boolean estaInicializada(Simbolo s) {
+        if (s.getCategoria() != Simbolo.Categoria.VARIABLE) {
+            return true;
+        }
+        return inicializadas.contains(s.getPosicion());
+    }
+
+    /**
      * Tipo de un símbolo resuelto.
      * @Entrada: símbolo (puede ser null).
      * @Salida: su tipo, o "error" si no hay símbolo.
@@ -133,6 +159,11 @@ public final class Semantico {
         if (variable.getCategoria() == Simbolo.Categoria.ARREGLO) {
             ErrorReporter.semantico("'" + nombre + "' es un arreglo; use un elemento con " + nombre + " ʃ: indice :ʅ", columna, linea);
             return Expr.ERROR;
+        }
+
+        // Debe tener valor antes de usarse
+        if (!estaInicializada(variable)) {
+            ErrorReporter.semantico("La variable '" + nombre + "' se usa sin inicializar", columna, linea);
         }
         return variable.getTipo();
     }
@@ -237,7 +268,7 @@ public final class Semantico {
      * @Entrada: tipo de cada operando, operador y posición del operador.
      * @Salida: tipo del resultado o "error".
      * @Restricciones: tipado estricto, no se mezclan int y float.
-     *                 + - * aceptan dos int o dos float; / igual pero siempre da float;
+     *                 + - * aceptan dos int o dos float; / solo dos float;
      *                 // mod pot solo aceptan dos int.
      */
     private static String aritmetica(String tipoA, String op, String tipoB, int linea, int columna) {
@@ -262,8 +293,12 @@ public final class Semantico {
             return Expr.ERROR;
         }
 
-        // La división decimal siempre da float
+        // La división decimal solo acepta float
         if (op.equals("/")) {
+            if (!ambosFloat) {
+                ErrorReporter.semantico("El operador '/' solo acepta float, se recibió " + tipoA + " y " + tipoB, columna, linea);
+                return Expr.ERROR;
+            }
             return "float";
         }
         return tipoA;
@@ -320,6 +355,11 @@ public final class Semantico {
         if (!tipo.equals("int") && !tipo.equals("float")) {
             ErrorReporter.semantico("El operador '" + op + "' solo se aplica a int o float, '" + nombre + "' es " + tipo, columna, linea);
             return Expr.ERROR;
+        }
+
+        // Debe tener valor antes de usarse
+        if (!estaInicializada(variable)) {
+            ErrorReporter.semantico("La variable '" + nombre + "' se usa sin inicializar", columna, linea);
         }
         return tipo;
     }
@@ -419,7 +459,11 @@ public final class Semantico {
         }
         // usarVariable ya reporta si no existe o si es una función
         Simbolo destino = usarVariable(nombre, linea, columna);
-        if (destino == null || Expr.esError(valor)) {
+        if (destino == null) {
+            return;
+        }
+        marcarInicializada(destino);
+        if (Expr.esError(valor)) {
             return;
         }
 
@@ -457,7 +501,13 @@ public final class Semantico {
      * @Restricciones: si no hay valor o el valor ya tiene error, no se reporta nada.
      */
     public static void declaracion(Simbolo simbolo, Expr valor) {
-        if (!esSegundaPasada() || valor == null || Expr.esError(valor)) {
+        if (!esSegundaPasada()) {
+            return;
+        }
+        if (valor != null) {
+            marcarInicializada(simbolo);
+        }
+        if (valor == null || Expr.esError(valor)) {
             return;
         }
         if (!compatible(simbolo.getTipo(), valor.getTipo())) {
@@ -678,6 +728,7 @@ public final class Semantico {
         if (variable == null) {
             return;
         }
+        marcarInicializada(variable);
 
         // No en un arreglo completo
         if (variable.getCategoria() == Simbolo.Categoria.ARREGLO) {
@@ -747,7 +798,7 @@ public final class Semantico {
         for (Simbolo simbolo : tabla.getSimbolos()) {
             String nombre = simbolo.getLexema();
 
-            // Redeclarado en esta misma tabla (la marca la puso TablaSimbolos.agregar)
+            // Redeclarado (marca puesta en GestorTablas.cerrarGlobal)
             if (simbolo.isRedeclarada()) {
                 int lineaPrimera = simbolo.getPrimeraDeclaracion().getLinea();
                 ErrorReporter.semantico("Redeclaración de '" + nombre + "' (primera declaración en la línea " + lineaPrimera + ")",

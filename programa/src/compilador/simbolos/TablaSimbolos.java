@@ -79,6 +79,24 @@ public class TablaSimbolos {
     }
 
     /**
+     * Busca un nombre en las tablas padre, hasta la global.
+     * @Entrada: nombre a buscar.
+     * @Salida: la declaración encontrada, o null si no hay.
+     * @Restricciones: no revisa esta misma tabla.
+     */
+    public Simbolo buscarEnPadres(String lexema) {
+        TablaSimbolos tabla = padre;
+        while (tabla != null) {
+            Simbolo s = tabla.buscarLocal(lexema);
+            if (s != null) {
+                return s;
+            }
+            tabla = tabla.padre;
+        }
+        return null;
+    }
+
+    /**
      * Busca un nombre desde esta tabla hacia afuera, pero solo acepta declaraciones que estén
      * antes de la posición donde se usa el nombre. Las funciones y principal se aceptan
      * siempre, porque se pueden llamar aunque estén declaradas más abajo.

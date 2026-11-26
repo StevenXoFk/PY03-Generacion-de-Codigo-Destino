@@ -52,7 +52,7 @@ public class Simbolo {
     public void setAlcance(TablaSimbolos alcance) { this.alcance = alcance; }
 
     /**
-     * Marca el símbolo como repetido dentro de su mismo alcance.
+     * Marca el símbolo como repetido, en su mismo alcance o en uno externo.
      * @Entrada: la primera declaración con el mismo nombre.
      * @Salida: el símbolo queda marcado.
      */

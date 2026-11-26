@@ -133,6 +133,16 @@ public class GestorTablas {
         for (Simbolo s : declaraciones) {
             global.tablaMasInterna(s.getPosicion()).agregar(s);
         }
+
+        // Marcar los nombres que ya existen en un alcance externo
+        for (Simbolo s : declaraciones) {
+            if (!s.isRedeclarada()) {
+                Simbolo externo = s.getAlcance().buscarEnPadres(s.getLexema());
+                if (externo != null) {
+                    s.marcarRedeclarada(externo);
+                }
+            }
+        }
         return global;
     }
 

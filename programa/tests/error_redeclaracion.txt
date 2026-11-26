@@ -1,0 +1,41 @@
+val int x Ͱ 1 »
+val int x Ͱ 2 »  | error: x repetida
+val int y Ͱ 3 »
+
+int f є: int x :э ¿:  | error: tapa a x global
+    val int y Ͱ 0 »  | error: tapa a y global
+    return y »
+:?
+
+int g є: int n :э ¿:
+    val int i Ͱ n »
+    return i »
+:?
+
+int h є: int n :э ¿:  | ok: otra función
+    val int i Ͱ n »
+    return i »
+:?
+
+void principal є: :э ¿:
+    val int z Ͱ 1 »  | error: tapa a z global (abajo)
+    val int z Ͱ 2 »  | error: z repetida
+    val int f Ͱ 3 »  | error: tapa a la función f
+    if є: true :э ¿:
+        val int a Ͱ 1 »
+        val int z Ͱ 4 »  | error: tapa a z de principal
+    :? else ¿:
+        val int a Ͱ 2 »  | ok: hermano del if
+    :?
+    for є: val int k Ͱ 0 » ʃ: k :ʅ < ʃ: 2 :ʅ » k++ :э ¿:
+        val int k Ͱ 5 »  | error: repite k del for
+    :?
+    for є: val int k Ͱ 0 » ʃ: k :ʅ < ʃ: 2 :ʅ » k++ :э ¿:  | ok: otro for
+        write є: k :э »
+    :?
+    for є: val int y Ͱ 0 » ʃ: y :ʅ < ʃ: 2 :ʅ » y++ :э ¿:  | error: tapa a y global
+        write є: y :э »
+    :?
+:?
+
+val int z Ͱ 9 »
